@@ -34,6 +34,10 @@ def test_parse_macros():
     assert hourly.minutes.values == {0}
     assert hourly.hours.is_wildcard is True
 
+    minutely = parse_cron("@minutely")
+    assert minutely.minutes.is_wildcard is True
+    assert minutely.hours.is_wildcard is True
+
     weekly = parse_cron("@weekly")
     assert weekly.days_of_week.values == {0}
 

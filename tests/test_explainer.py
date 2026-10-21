@@ -20,6 +20,7 @@ def test_explain_macros():
     assert "Every Sunday" in explain_cron("@weekly")
     assert "Every day at midnight" in explain_cron("@daily")
     assert "Every hour at minute 0" in explain_cron("@hourly")
+    assert "Every minute" in explain_cron("@minutely")
 
 
 def test_explain_weekdays_and_weekends():

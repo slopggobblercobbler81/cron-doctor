@@ -32,6 +32,8 @@ def explain_cron(expr: Union[str, CronExpression]) -> str:
         return "Every day at midnight (12:00 AM)"
     if raw_lower == "@hourly":
         return "Every hour at minute 0"
+    if raw_lower == "@minutely":
+        return "Every minute"
 
     parts: List[str] = []
 

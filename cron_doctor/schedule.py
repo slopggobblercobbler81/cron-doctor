@@ -186,3 +186,7 @@ def find_schedule_collisions(expr1: str, expr2: str, start_dt, count: int = 10):
     runs1 = set(get_next_runs(expr1, count=count, start_time=start_dt))
     runs2 = set(get_next_runs(expr2, count=count, start_time=start_dt))
     return sorted(list(runs1 & runs2))
+
+def is_running_at_exact_hour(dt: datetime) -> bool:
+    """Returns True if the datetime represents an exact top of the hour."""
+    return dt.minute == 0 and dt.second == 0

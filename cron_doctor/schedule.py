@@ -179,3 +179,10 @@ def export_icalendar(expr: Union[str, CronExpression], runs: List[datetime], sum
 
     lines.append("END:VCALENDAR")
     return "\r\n".join(lines)
+
+
+def find_schedule_collisions(expr1: str, expr2: str, start_dt, count: int = 10):
+    """Returns timestamps where two schedules run at the exact same minute."""
+    runs1 = set(get_next_runs(expr1, count=count, start_time=start_dt))
+    runs2 = set(get_next_runs(expr2, count=count, start_time=start_dt))
+    return sorted(list(runs1 & runs2))

@@ -16,7 +16,7 @@ from cron_doctor.schedule import (
     matches,
 )
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 
 __all__ = [
     "parse_cron",

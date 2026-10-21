@@ -199,3 +199,8 @@ def is_every_minute_schedule(expr: Union[str, CronExpression]) -> bool:
     """Returns True if cron schedule executes on every minute."""
     cron = parse_cron(expr) if isinstance(expr, str) else expr
     return cron.minutes.raw == "*" and cron.hours.raw == "*"
+
+def get_next_run_iso(expr: Union[str, CronExpression], start_time: Optional[datetime] = None) -> Optional[str]:
+    """Returns ISO 8601 string for the single next scheduled run datetime."""
+    runs = get_next_runs(expr, count=1, start_time=start_time)
+    return runs[0].isoformat() if runs else None

@@ -204,6 +204,8 @@ def _parse_single_sub(sub: str, field_name: str, min_val: int, max_val: int) -> 
         range_parts = base.split("-", 1)
         start = _convert_value(range_parts[0], field_name, min_val, max_val)
         end = _convert_value(range_parts[1], field_name, min_val, max_val)
+        if field_name == "day_of_week" and end == 0 and start > 0:
+            end = 7
         if start > end:
             raise CronSyntaxError(
                 f"Range start ({start}) cannot exceed end ({end}) in {field_name}",
@@ -213,6 +215,8 @@ def _parse_single_sub(sub: str, field_name: str, min_val: int, max_val: int) -> 
     else:
         # Single value with optional step
         val = _convert_value(base, field_name, min_val, max_val)
+        if field_name == "day_of_week" and val == 7:
+            val = 0
         if "/" in sub:
             start = val
             end = max_val
@@ -222,7 +226,10 @@ def _parse_single_sub(sub: str, field_name: str, min_val: int, max_val: int) -> 
     matched = set()
     curr = start
     while curr <= end:
-        matched.add(curr)
+        v = curr
+        if field_name == "day_of_week" and v == 7:
+            v = 0
+        matched.add(v)
         curr += step
 
     return matched
@@ -239,7 +246,7 @@ def _convert_value(val_str: str, field_name: str, min_val: int, max_val: int) ->
         if clean in DAY_NAMES:
             return DAY_NAMES[clean]
         if clean == "7":
-            return 0  # 7 is Sunday, normalized to 0
+            return 7  # Keep 7 for ranges, normalized later
 
     try:
         val = int(clean)
@@ -258,8 +265,5 @@ def _convert_value(val_str: str, field_name: str, min_val: int, max_val: int) ->
             field_name=field_name,
             field_value=str(val),
         )
-
-    if field_name == "day_of_week" and val == 7:
-        return 0
 
     return val

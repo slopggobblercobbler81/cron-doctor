@@ -120,3 +120,18 @@ def test_parse_step_values():
     # Empty step validation
     with pytest.raises(CronSyntaxError, match="Invalid step"):
         parse_cron("*/ * * * *")
+
+
+def test_parse_day_of_week_ranges_with_sunday_aliases():
+    """Verify that ranges ending in 7 (Sunday alias) or SUN expand properly."""
+    c1 = parse_cron("0 0 * * 5-7")
+    assert c1.days_of_week.values == {0, 5, 6}
+
+    c2 = parse_cron("0 0 * * 1-7")
+    assert c2.days_of_week.values == {0, 1, 2, 3, 4, 5, 6}
+
+    c3 = parse_cron("0 0 * * FRI-SUN")
+    assert c3.days_of_week.values == {0, 5, 6}
+
+    c4 = parse_cron("0 0 * * 7")
+    assert c4.days_of_week.values == {0}

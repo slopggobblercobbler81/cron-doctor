@@ -1,5 +1,5 @@
-feat(schedule): add is_running_on_weekends timing helper
+feat(schedule): add is_every_minute_schedule convenience predicate helper
 
-Provide helper checking if schedule execution falls on Saturday or Sunday.
+Add predicate calculating if cron expression runs on every minute.
 
 Co-authored-by: Stephen Cork <slopggobblercobbler81@users.noreply.github.com>

@@ -194,3 +194,8 @@ def is_running_at_exact_hour(dt: datetime) -> bool:
 def is_running_on_weekends(dt: datetime) -> bool:
     """Returns True if datetime occurs on Saturday or Sunday."""
     return dt.weekday() in (5, 6)
+
+def is_every_minute_schedule(expr: Union[str, CronExpression]) -> bool:
+    """Returns True if cron schedule executes on every minute."""
+    cron = parse_cron(expr) if isinstance(expr, str) else expr
+    return cron.minutes.raw == "*" and cron.hours.raw == "*"

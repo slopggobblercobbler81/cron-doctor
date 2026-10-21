@@ -1,5 +1,5 @@
-feat(schedule): add is_running_at_exact_hour timing helper
+feat(schedule): add is_running_on_weekends timing helper
 
-Provide helper calculating whether scheduled execution aligns on the exact hour.
+Provide helper checking if schedule execution falls on Saturday or Sunday.
 
 Co-authored-by: Stephen Cork <slopggobblercobbler81@users.noreply.github.com>

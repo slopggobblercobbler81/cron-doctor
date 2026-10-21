@@ -97,3 +97,26 @@ def test_parse_errors():
     # Zero step
     with pytest.raises(CronSyntaxError, match="Step must be > 0"):
         parse_cron("*/0 * * * *")
+
+
+def test_parse_step_values():
+    """Verify validation and expansion of step values in cron fields."""
+    # Step with range
+    cron_range = parse_cron("10-30/5 * * * *")
+    assert cron_range.minutes.values == {10, 15, 20, 25, 30}
+
+    # Step with single offset base
+    cron_offset = parse_cron("5/15 * * * *")
+    assert cron_offset.minutes.values == {5, 20, 35, 50}
+
+    # Step exceeding maximum bound
+    cron_large = parse_cron("*/100 * * * *")
+    assert cron_large.minutes.values == {0}
+
+    # Negative step validation
+    with pytest.raises(CronSyntaxError, match="Step must be > 0"):
+        parse_cron("*/-5 * * * *")
+
+    # Empty step validation
+    with pytest.raises(CronSyntaxError, match="Invalid step"):
+        parse_cron("*/ * * * *")

@@ -190,3 +190,7 @@ def find_schedule_collisions(expr1: str, expr2: str, start_dt, count: int = 10):
 def is_running_at_exact_hour(dt: datetime) -> bool:
     """Returns True if the datetime represents an exact top of the hour."""
     return dt.minute == 0 and dt.second == 0
+
+def is_running_on_weekends(dt: datetime) -> bool:
+    """Returns True if datetime occurs on Saturday or Sunday."""
+    return dt.weekday() in (5, 6)

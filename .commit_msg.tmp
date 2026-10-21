@@ -1,5 +1,5 @@
-feat(linter): add step value divisibility anti-pattern rule
+feat(schedule): add find_schedule_collisions helper for schedule distribution
 
-Analyze minute step expressions that do not cleanly divide 60 minutes with automated tests.
+Implement helper calculating intersecting runtimes between concurrent cron schedules.
 
 Co-authored-by: Stephen Cork <stephencork81@gmail.com>

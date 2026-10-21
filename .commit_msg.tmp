@@ -1,0 +1,5 @@
+feat(linter): add step value divisibility anti-pattern rule
+
+Analyze minute step expressions that do not cleanly divide 60 minutes with automated tests.
+
+Co-authored-by: Stephen Cork <stephencork81@gmail.com>

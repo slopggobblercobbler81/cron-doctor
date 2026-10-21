@@ -157,4 +157,19 @@ def lint_cron(expr: Union[str, CronExpression]) -> LintReport:
             )
         )
 
+    # 7. Non-divisible step value warning
+    if '/' in cron.minutes.raw:
+        parts = cron.minutes.raw.split('/')
+        if len(parts) == 2 and parts[1].isdigit():
+            step = int(parts[1])
+            if step > 0 and 60 % step != 0:
+                issues.append(
+                    LintIssue(
+                        code="STEP_NOT_DIVISIBLE",
+                        severity=LintSeverity.INFO,
+                        message=f"Minute step '/{step}' does not evenly divide 60 minutes.",
+                        recommendation="Last run interval in each hour will be shorter than expected.",
+                    )
+                )
+
     return LintReport(issues=issues)

@@ -20,6 +20,7 @@ CRON_MACROS: Dict[str, str] = {
     "@daily": "0 0 * * *",
     "@midnight": "0 0 * * *",
     "@hourly": "0 * * * *",
+    "@minutely": "* * * * *",
 }
 
 
